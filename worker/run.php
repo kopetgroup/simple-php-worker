@@ -14,11 +14,11 @@ if(isset($_SERVER['REDIS'])){
 }else{
   $r = '';
 }
-$redis = new \Predis\Client($r);
+//$redis = new \Predis\Client($r);
 //looping
 while(true) {
 
-
+  /*
   $e = $redis->keys('1*');
   asort($e);
   $e = array_values($e);
@@ -45,6 +45,11 @@ while(true) {
     echo 'job entek. @'.$date."\n";
     sleep(10);
   }
+  */
+  echo 'running job: "'.$job.'" @'.$date."\n";
+  slack('bot running: '.$job);
+  sleep(4);
+  
 }
 
 function slack($msg=''){
