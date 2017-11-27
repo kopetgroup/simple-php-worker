@@ -34,6 +34,8 @@ final class JobsController {
 
   public function worker(){
     $dr = str_replace('/app/controller','/worker/',__DIR__);
+    echo $dr;
+    echo '<br/>'.__DIR__;
     $ps = shell_exec('ps aux | grep '.$dr.'');
     $ps = explode("\n",$ps);
     $ec = [];
