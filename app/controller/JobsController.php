@@ -14,7 +14,7 @@ final class JobsController {
       echo 'bot running';
     }else{
       $sh = str_replace('/app/controller','/worker/init.sh',__DIR__);
-      $rt = exec('nohup '.$sh);
+      $rt = exec('xnohup '.$sh);
       echo $rt;
     }
   }
@@ -34,8 +34,6 @@ final class JobsController {
 
   public function worker(){
     $dr = str_replace('/app/controller','/worker/',__DIR__);
-    echo $dr;
-    echo '<br/>'.__DIR__;
     $ps = shell_exec('ps aux | grep '.$dr.'');
     $ps = explode("\n",$ps);
     $ec = [];
