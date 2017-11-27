@@ -17,6 +17,7 @@ final class JobsController {
       $rt = exec('nohup '.$sh.' > /dev/null 2>&1 &');
       echo $rt;
     }
+
   }
 
   public function status(){
