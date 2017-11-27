@@ -6,6 +6,7 @@ session_start();
 $dotenv = new \Dotenv\Dotenv(__DIR__, '../.env');
 $dotenv->load();
 
+$hostname = trim(shell_exec('hostname -I'));
 slack('bot initiate');
 
 //load redis
@@ -48,7 +49,7 @@ while(true) {
   */
   //echo 'running job: "'.$job.'" -> '.$_SERVER['HTTP_HOST'].' @'.$date."\n";
   $argv = $GLOBALS['argv'];
-  slack('bot running: ->  '.$argv[1].' / '.$job);
+  slack('bot running: ->  '.$hostname.' / '.$job);
   sleep(4);
 
 }

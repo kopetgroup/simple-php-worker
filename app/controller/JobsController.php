@@ -14,23 +14,36 @@ final class JobsController {
       echo 'bot running';
     }else{
       $sh = str_replace('/app/controller','/worker/init.sh',__DIR__);
-      $rt = exec('nohup '.$sh.' > /dev/null 2>&1 &');
-      echo $rt;
+      exec('nohup '.$sh.' > /dev/null 2>&1 &');
+      echo 'bot started';
     }
 
   }
 
-  public function status(){
+  public function status(Request $request, Response $response){
     $ec = $this->worker();
-    print_r($ec);
+    $response = $response
+      ->withAddedHeader('Access-Control-Allow-Methods','POST, GET, OPTIONS')
+      ->withAddedHeader('Access-Control-Allow-Origin','*');
+    $r = $response->withJson($ec);
+    return $r;
   }
 
-  public function kill(){
+  public function kill(Request $request, Response $response){
     $ec = $this->worker();
+    $ed = [];
     foreach($ec as $i){
-      echo 'pid '.$i['pid'].' killed';
       shell_exec('kill -9 '.$i['pid']);
+      $ed[] = [
+        'pid' => $i['pid'],
+        'res' => 'killed'
+      ];
     }
+    $response = $response
+      ->withAddedHeader('Access-Control-Allow-Methods','POST, GET, OPTIONS')
+      ->withAddedHeader('Access-Control-Allow-Origin','*');
+    $r = $response->withJson($ed);
+    return $r;
   }
 
   public function worker(){
@@ -44,11 +57,11 @@ final class JobsController {
       $i = $c[1];
       $d = explode(' ',$e);
       $d = $d[count($d)-1];
-      if($i && strpos($d,$dr)!==false && substr($d,-1)!=='/'){
+      if(strpos($e,$dr)!==false && substr($d,-1)!=='/'){
         $ec[] = [
           'pid' => $i,
           'user' => $c[0],
-          'path' => $d
+          'path' => $d,
         ];
       }
     }
