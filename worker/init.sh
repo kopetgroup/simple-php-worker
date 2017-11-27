@@ -1,3 +1,3 @@
 #!/bin/bash
 
-php $PWD/worker/run.php
+php ./run.php
