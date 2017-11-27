@@ -47,7 +47,7 @@ while(true) {
   }
   */
   echo 'running job: "'.$job.'" -> '.$_SERVER['HTTP_HOST'].' @'.$date."\n";
-  slack('bot running: '.$job);
+  slack('bot running: -> '.$_SERVER['HTTP_HOST'].' / '.$job);
   sleep(4);
 
 }
