@@ -14,7 +14,7 @@ final class JobsController {
       echo 'bot running';
     }else{
       $sh = str_replace('/app/controller','/worker/init.sh',__DIR__);
-      $rt = exec('xnohup '.$sh);
+      $rt = exec('nohup '.$sh.' > /dev/null 2>&1 &');
       echo $rt;
     }
   }
