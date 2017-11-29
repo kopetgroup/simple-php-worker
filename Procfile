@@ -1,2 +1,2 @@
 web: vendor/bin/heroku-php-nginx -C nginx_app.conf public/
-worker: php worker/run.php
+#worker: php worker/run.php
